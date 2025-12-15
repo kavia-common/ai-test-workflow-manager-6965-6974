@@ -15,15 +15,19 @@ The app reads these variables:
 Optional variables present in the environment but not directly used in the MVP:
 - `REACT_APP_FRONTEND_URL`, `REACT_APP_WS_URL`, `REACT_APP_NODE_ENV`, `REACT_APP_NEXT_TELEMETRY_DISABLED`, `REACT_APP_ENABLE_SOURCE_MAPS`, `REACT_APP_PORT`, `REACT_APP_TRUST_PROXY`, `REACT_APP_LOG_LEVEL`, `REACT_APP_EXPERIMENTS_ENABLED`.
 
+See `.env.example` for quick configuration.
+
 ## Scripts
 
 - `npm start`: Start dev server at http://localhost:3000
 - `npm test`: Run tests
 - `npm run build`: Production build
 
-## API Client Assumptions
+## API Contract and Integration
 
-This MVP expects the backend to expose these routes:
+The frontend expects a Flask backend bound to port 3001 and CORS enabled for the frontend origin (e.g., http://localhost:3000).
+
+Required endpoints:
 - `GET {API_BASE}/health`
 - `GET {API_BASE}/suites`
 - `GET {API_BASE}/suites/:id`
@@ -32,7 +36,7 @@ This MVP expects the backend to expose these routes:
 - `POST {API_BASE}/suites/:id/run`
 - `GET {API_BASE}/runs`
 
-If your backend differs, adjust endpoints in `src/lib/apiClient.js`.
+If your backend differs, adjust endpoints in `src/lib/apiClient.js`. The health path is configurable via `REACT_APP_HEALTHCHECK_PATH`.
 
 ## Theming
 
