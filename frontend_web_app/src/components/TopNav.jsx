@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { health } from "../lib/apiClient";
-import { getApiBaseUrl, getFeatureFlags } from "../lib/config";
+import { getApiBaseUrl, getFeatureFlags, getHealthPath } from "../lib/config";
 
 // PUBLIC_INTERFACE
 export default function TopNav() {
@@ -19,6 +19,9 @@ export default function TopNav() {
 
   const flags = Array.from(getFeatureFlags());
 
+  const apiBase = getApiBaseUrl();
+  const healthPath = getHealthPath();
+
   return (
     <div className="topnav" role="navigation" aria-label="Top Navigation">
       <div className="brand">
@@ -26,7 +29,10 @@ export default function TopNav() {
         <div className="brand-name">AI Test Workflow Manager</div>
       </div>
       <div className="topnav-actions">
-        <span className={`badge ${status.ok ? "ok" : "err"}`} title={`API: ${getApiBaseUrl()}`}>
+        <span
+          className={`badge ${status.ok ? "ok" : "err"}`}
+          title={`API: ${apiBase}${healthPath.startsWith("/") ? healthPath : `/${healthPath}`}`}
+        >
           <span aria-hidden="true" style={{ fontSize: 10 }}>
             {status.ok ? "●" : "○"}
           </span>
