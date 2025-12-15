@@ -1,82 +1,39 @@
-# Lightweight React Template for KAVIA
+# AI Test Workflow Manager - Frontend (React)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A lightweight React MVP with a Corporate Navy theme and a classic layout (TopNav, Sidebar, Main). It provides three core screens:
+- Test Suite List
+- Editor with "AI Suggest"
+- Run History
 
-## Features
+## Environment
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+The app reads these variables:
+- `REACT_APP_API_BASE` or `REACT_APP_BACKEND_URL`: Backend API base URL. If not provided, it falls back to `http://<host>:3001`.
+- `REACT_APP_HEALTHCHECK_PATH`: Health endpoint path (default `/health`).
+- `REACT_APP_FEATURE_FLAGS`: Comma-separated flags (e.g., `ai-suggest,editor-beta`) surfaced in the top-right badge.
 
-## Getting Started
+Optional variables present in the environment but not directly used in the MVP:
+- `REACT_APP_FRONTEND_URL`, `REACT_APP_WS_URL`, `REACT_APP_NODE_ENV`, `REACT_APP_NEXT_TELEMETRY_DISABLED`, `REACT_APP_ENABLE_SOURCE_MAPS`, `REACT_APP_PORT`, `REACT_APP_TRUST_PROXY`, `REACT_APP_LOG_LEVEL`, `REACT_APP_EXPERIMENTS_ENABLED`.
 
-In the project directory, you can run:
+## Scripts
 
-### `npm start`
+- `npm start`: Start dev server at http://localhost:3000
+- `npm test`: Run tests
+- `npm run build`: Production build
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## API Client Assumptions
 
-### `npm test`
+This MVP expects the backend to expose these routes:
+- `GET {API_BASE}/health`
+- `GET {API_BASE}/suites`
+- `GET {API_BASE}/suites/:id`
+- `POST {API_BASE}/suites` (create/update)
+- `POST {API_BASE}/ai/suggest`
+- `POST {API_BASE}/suites/:id/run`
+- `GET {API_BASE}/runs`
 
-Launches the test runner in interactive watch mode.
+If your backend differs, adjust endpoints in `src/lib/apiClient.js`.
 
-### `npm run build`
+## Theming
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
-
-### Components
-
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The Corporate Navy theme is defined in `src/theme.css` and applied across components without external UI frameworks.
